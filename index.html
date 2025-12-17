@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -729,7 +728,8 @@
                 </div>
             </div>
             <div class="copyright">
-                © 2025 Andaman Nursery. All Rights Reserved. <br>
+                © 2025 Andaman Nursery. All Rights Reserved. 
+
                 <span style="font-size:11px; opacity:0.7;">Made with ❤️ in Odisha.</span>
             </div>
         </div>
@@ -967,16 +967,45 @@
                 if(isCartCheckout) { cart=[]; document.getElementById('cCount').innerText=0; } goHome();
             } else { openPayModal(finalAmt); }
         }
-        function openPayModal(amt) { document.getElementById('modalAmt').innerText = amt; let s = `upi://pay?pa=mistrypapan@ybl&pn=Andaman&am=${amt}&cu=INR`; document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(s)}`; document.getElementById('payModal').style.display = "block"; }
+        
+        // --- UPDATED PAYMENT FUNCTIONS (FIX FOR DECLINE ISSUE) ---
+        function openPayModal(amt) {
+            document.getElementById('modalAmt').innerText = amt;
+            // Generate a unique transaction ID
+            let tid = "T" + Date.now();
+            // Format amount to 2 decimal places
+            let amtFixed = parseFloat(amt).toFixed(2);
+            // Construct the standard UPI link with Transaction ID (tr) and Note (tn)
+            let s = `upi://pay?pa=mistrypapan@ybl&pn=AndamanNursery&tid=${tid}&tr=${tid}&tn=OrderPayment&am=${amtFixed}&cu=INR`;
+            // Encode for QR code
+            document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(s)}`;
+            document.getElementById('payModal').style.display = "block";
+        }
+
         function closePayModal() { document.getElementById('payModal').style.display = "none"; }
+
         function payWithApp(app) {
-            let u="mistrypapan@ybl", n="Andaman", a=finalAmt;
-            let lnk = `upi://pay?pa=${u}&pn=${n}&am=${a}&cu=INR`;
-            if(app==='gpay') lnk=`tez://upi/pay?pa=${u}&pn=${n}&am=${a}&cu=INR`;
-            if(app==='phonepe') lnk=`phonepe://pay?pa=${u}&pn=${n}&am=${a}&cu=INR`;
-            if(app==='paytm') lnk=`paytmmp://pay?pa=${u}&pn=${n}&am=${a}&cu=INR`;
+            let u = "mistrypapan@ybl";
+            let n = "AndamanNursery"; // Removed spaces to be safe
+            let a = parseFloat(finalAmt).toFixed(2); // Important: 2 decimal places
+            let tid = "T" + Date.now(); // Unique Transaction ID
+
+            // Create a robust standard UPI link
+            // Added 'tr' (Transaction Ref ID) and 'tn' (Transaction Note)
+            let baseLink = `upi://pay?pa=${u}&pn=${n}&tr=${tid}&tn=OrderPayment&am=${a}&cu=INR&mode=00`;
+
+            let lnk = baseLink;
+
+            // Using standard link for all apps is generally more reliable now.
+            // If you specifically want to try app-specific schemes (less recommended):
+            // if(app === 'gpay') lnk = `tez://upi/pay?pa=${u}&pn=${n}&tr=${tid}&tn=OrderPayment&am=${a}&cu=INR`;
+            // else if(app === 'phonepe') lnk = `phonepe://pay?pa=${u}&pn=${n}&tr=${tid}&tn=OrderPayment&am=${a}&cu=INR`;
+            // else if(app === 'paytm') lnk = `paytmmp://pay?pa=${u}&pn=${n}&tr=${tid}&tn=OrderPayment&am=${a}&cu=INR`;
+
             window.location.href = lnk;
         }
+        // ---------------------------------------------------------
+
         function confirmPayment() {
             closePayModal();
             let itemsTxt = isCartCheckout ? `Cart (${cart.length})` : `${curr.name} (Qty: ${buyQty})`;
