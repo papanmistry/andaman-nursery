@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andaman Nursery - India's Premium Plant Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- 1. PREMIUM NATURE THEME --- */
+        :root {
+            --primary: #053B2F;      /* Deep Forest Green */
+            --secondary: #0A5C4B;    /* Lighter Green */
+            --accent: #F1F8E9;       /* Mint White Background */
+            --btn-main: #F9A825;     /* Gold Yellow */
+            --btn-hover: #F57F17;    /* Dark Gold */
+            --text-main: #1B1B1B;
+            --price: #B12704;
+            --link: #007185;
+            --white: #ffffff;
+            --star: #FFA41C;
+            --border: #e0e0e0;
+            --success: #067D62;
+            --heart: #d11a2a;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+        body { background-color: var(--accent); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; font-size: 14px; scroll-behavior: smooth; }
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        button { cursor: pointer; transition: 0.2s; }
+        ul { list-style: none; }
+        
+        .container { max-width: 1450px; margin: auto; padding: 0 20px; }
+
+        /* --- 2. HEADER --- */
+        header { position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        .h-top { background-color: var(--primary); height: 70px; display: flex; align-items: center; padding: 0 20px; gap: 20px; color: white; }
+        .logo { font-size: 1.8rem; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo i { color: var(--btn-main); }
+        .logo span { font-weight: 300; font-size: 13px; color: #ccc; margin-top: 5px; }
+
+        .search-wrap { flex-grow: 1; display: flex; height: 42px; border-radius: 4px; overflow: hidden; background: white; }
+        .search-in { flex-grow: 1; border: none; padding: 0 15px; outline: none; font-size: 15px; }
+        .search-btn { background: var(--btn-main); width: 50px; border: none; font-size: 1.2rem; color: #000; cursor: pointer; }
+        
+        .nav-icons { display: flex; gap: 25px; align-items: center; }
+        .nav-item { text-align: center; cursor: pointer; opacity: 0.9; color: white; position: relative; }
+        .nav-item:hover { opacity: 1; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 2px; }
+        .nav-item span { font-size: 12px; font-weight: 500; }
+        
+        .badge { position: absolute; top: -8px; right: -5px; background: var(--btn-main); color: black; font-weight: bold; font-size: 11px; padding: 1px 5px; border-radius: 50%; }
+
+        .h-sub { background-color: var(--secondary); height: 42px; display: flex; align-items: center; padding: 0 20px; gap: 25px; color: white; overflow-x: auto; }
+        .h-sub span { font-weight: 500; cursor: pointer; font-size: 13px; letter-spacing: 0.5px; opacity: 0.9; border: 1px solid transparent; padding: 5px 10px; border-radius: 20px; }
+        .h-sub span:hover { background: rgba(255,255,255,0.1); opacity: 1; color: var(--btn-main); }
+
+        /* --- BACK BUTTON --- */
+        .back-strip { background: white; padding: 12px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px; }
+        .back-content { display: flex; justify-content: flex-start; cursor: pointer; font-weight: 600; color: var(--primary); gap: 8px; align-items: center; }
+        .back-content:hover { color: var(--btn-hover); text-decoration: underline; }
+
+        /* --- PAGES --- */
+        .page { display: none; width: 100%; padding-bottom: 50px; }
+        .active { display: block; }
+
+        /* --- 1. HOME BANNER (Video Ready) --- */
+        .banner { 
+            height: 420px; 
+            position: relative;
+            overflow: hidden;
+            display: flex; align-items: center; padding-left: 60px;
+            border-bottom: 5px solid var(--btn-main);
+            margin-bottom: 30px;
+            background-color: #053B2F;
+        }
+        .banner-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+        .banner-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, #053b2ff2 30%, transparent); z-index: 1; }
+        .banner-content { max-width: 600px; position: relative; z-index: 2; }
+        
+        .offer-badge { background: #D32F2F; color: white; padding: 8px 15px; font-weight: 700; font-size: 14px; border-radius: 30px; display: inline-block; margin-bottom: 15px; box-shadow: 0 0 10px rgba(211, 47, 47, 0.5); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .banner h1 { font-size: 52px; color: white; margin-bottom: 15px; font-family: "Georgia", serif; line-height: 1.1; }
+        .banner p { font-size: 22px; color: white; margin-bottom: 30px; font-weight: 500; text-shadow: 2px 2px 4px #000; }
+        .shop-btn { padding: 15px 40px; background: var(--btn-main); border: none; font-weight: bold; font-size: 18px; border-radius: 30px; color: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; }
+        .section-head { font-size: 26px; font-weight: 700; color: var(--primary); margin-bottom: 20px; border-left: 5px solid var(--btn-main); padding-left: 15px; }
+        
+        .p-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer; border: 1px solid transparent; position: relative; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .c-img { width: 100%; height: 250px; object-fit: contain; padding: 20px; background: #fff; border-bottom: 1px solid #f0f0f0; }
+        .c-body { padding: 15px; }
+        .c-tag { background: #E8F5E9; color: var(--primary); font-size: 11px; padding: 4px 8px; border-radius: 4px; font-weight: bold; display: inline-block; margin-bottom: 8px; }
+        .c-title { font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 5px; height: 65px; overflow: hidden; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+        .c-rate { color: var(--star); font-size: 13px; margin-bottom: 8px; }
+        .c-price { font-size: 22px; font-weight: 700; color: var(--text-main); }
+        .c-old { font-size: 13px; color: #888; text-decoration: line-through; margin-left: 5px; }
+        
+        .card-heart { position: absolute; top: 15px; right: 15px; font-size: 20px; color: #ccc; z-index: 5; transition: 0.2s; }
+        .card-heart:hover, .card-heart.active { color: var(--heart); transform: scale(1.2); }
+
+        /* --- 2. DETAILS PAGE --- */
+        .dt-layout { display: flex; gap: 40px; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+        .dt-left { flex: 0 0 40%; display: flex; gap: 15px; position: sticky; top: 100px; height: fit-content; }
+        .thumbs-col { display: flex; flex-direction: column; gap: 15px; }
+        .t-img { width: 60px; height: 60px; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; object-fit: cover; }
+        .t-img.active { border: 2px solid var(--primary); }
+        .main-img { flex: 1; text-align: center; border: 1px solid #f0f0f0; border-radius: 8px; padding: 10px; }
+        .main-img img { max-width: 100%; max-height: 500px; object-fit: contain; }
+
+        .dt-mid { flex: 1; }
+        .dt-head { font-size: 28px; font-weight: 600; color: var(--primary); line-height: 1.3; margin-bottom: 10px; }
+        .rating-box { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 14px; }
+        .price-box { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid var(--btn-main); }
+        .final-price { font-size: 36px; font-weight: 700; color: var(--text-main); }
+        .deal-tag { background: #D32F2F; color: white; padding: 4px 10px; font-weight: bold; border-radius: 20px; font-size: 12px; vertical-align: middle; margin-left: 10px; }
+        
+        .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; font-size: 14px; }
+        .spec-item { display: flex; flex-direction: column; }
+        .spec-label { font-weight: 700; color: #555; font-size: 12px; }
+        .spec-val { color: #111; font-weight: 500; }
+
+        .about-sec h3 { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 10px; }
+        .about-sec ul { margin-left: 20px; list-style: disc; color: #333; line-height: 1.6; }
+        .about-sec li { margin-bottom: 8px; }
+
+        .dt-right { flex: 0 0 300px; border: 1px solid #e0e0e0; padding: 25px; border-radius: 10px; height: fit-content; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .in-stock { color: var(--success); font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+        .qty-box { width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; cursor: pointer; }
+        .action-btn { width: 100%; padding: 14px; border: none; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; margin-bottom: 12px; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .b-cart { background: #FFEB3B; color: #000; }
+        .b-buy { background: var(--btn-main); color: #000; }
+        
+        .dt-actions { display: flex; gap: 15px; margin-top: 10px; }
+        .icon-btn { flex: 1; border: 1px solid #ccc; background: white; padding: 8px; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .icon-btn:hover { background: #f9f9f9; border-color: var(--primary); }
+        .wish-active { color: var(--heart); border-color: var(--heart); }
+
+        .sug-wrap { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; }
+        .sug-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding-bottom: 20px; }
+        .sug-card { border: 1px solid #eee; border-radius: 8px; background: white; padding: 10px; cursor: pointer; transition: 0.2s; }
+        .sug-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .sug-card img { width: 100%; height: 160px; object-fit: contain; margin-bottom: 10px; }
+        .sug-title { font-size: 13px; font-weight: 600; color: var(--primary); height: 55px; overflow: hidden; margin-bottom: 5px; line-height: 1.3; }
+        .sug-price { font-weight: bold; color: var(--price); font-size: 16px; }
+
+        .rev-wrap { display: flex; gap: 50px; margin-top: 40px; padding-top: 40px; border-top: 1px solid #ddd; }
+        .graph-col { flex: 1; max-width: 350px; }
+        .review-col { flex: 2; }
+        .bar-row { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; font-size: 14px; color: var(--link); font-weight: 500; }
+        .bar-bg { flex: 1; height: 22px; background: #f0f2f2; border-radius: 4px; border: 1px solid #ddd; }
+        .bar-fill { height: 100%; background: var(--btn-main); border-radius: 4px; }
+        .cust-rev { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .cr-head { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .cr-name { font-weight: 700; font-size: 14px; }
+        .cr-ver { color: #C45500; font-size: 11px; font-weight: 700; }
+        .cr-txt { color: #333; line-height: 1.5; }
+        .see-more-link { color: var(--link); font-weight: bold; cursor: pointer; margin-top: 15px; display: inline-block; font-size: 15px; }
+
+        /* CART & CHECKOUT */
+        #cart-page { max-width: 1200px; margin: auto; padding: 20px; }
+        .cart-grid { display: flex; gap: 30px; }
+        .cart-items { flex: 3; background: white; padding: 20px; border-radius: 8px; }
+        .cart-summary { flex: 1; background: white; padding: 20px; border-radius: 8px; height: fit-content; }
+        .cart-item { display: flex; gap: 20px; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+        .ci-img { width: 100px; height: 100px; object-fit: contain; }
+        .remove-btn { color: #d11a2a; font-size: 12px; cursor: pointer; margin-top: 10px; display: inline-block; font-weight: 600; }
+
+        .chk-wrap { display: flex; gap: 30px; margin-top: 30px; }
+        .chk-l { flex: 2.5; }
+        .chk-r { flex: 1; }
+        .step-box { background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .step-head { font-size: 18px; font-weight: 700; color: var(--primary); border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; }
+        .pay-item { border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 10px; cursor: pointer; display: flex; gap: 15px; align-items: center; background: #fff; }
+        .pay-item input { transform: scale(1.5); accent-color: var(--primary); }
+        .summary-card { background: white; padding: 25px; border-radius: 8px; position: sticky; top: 90px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .sum-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #555; }
+        .sum-total { border-top: 1px solid #ddd; padding-top: 15px; margin-top: 15px; display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; color: var(--text-main); }
+
+        /* FOOTER */
+        .footer { background: var(--primary); color: white; padding: 60px 0 20px; margin-top: 60px; }
+        .f-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+        .f-col h4 { font-size: 18px; margin-bottom: 20px; color: var(--btn-main); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; display: inline-block; }
+        .f-col ul { list-style: none; padding: 0; }
+        .f-col li { margin-bottom: 12px; color: #e0e0e0; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .f-col li:hover { color: var(--btn-main); padding-left: 5px; }
+        .copyright { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 50px; padding-top: 20px; font-size: 13px; color: #aaa; }
+
+        /* AUTH BOX */
+        .auth-box { max-width: 400px; margin: 50px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .inp-field { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px; font-size: 14px; }
+
+        /* ACCOUNT & ADDRESSES */
+        .acc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .acc-card { background: white; border: 1px solid #d5d9d9; border-radius: 8px; padding: 20px; cursor: pointer; display: flex; gap: 15px; align-items: flex-start; transition: 0.2s; }
+        .acc-card:hover { background: #f9f9f9; border-color: #aaa; }
+        .acc-icon { width: 50px; height: 50px; font-size: 30px; color: var(--primary); display: flex; align-items: center; justify-content: center; }
+        .acc-info h3 { font-size: 16px; margin-bottom: 5px; color: var(--text-main); }
+        .acc-info p { font-size: 13px; color: #565959; line-height: 1.4; }
+        
+        .addr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .addr-box { border: 1px solid #d5d9d9; border-radius: 8px; padding: 20px; height: 200px; display: flex; flex-direction: column; justify-content: space-between; background: white; }
+        .addr-add { border: 2px dashed #d5d9d9; align-items: center; justify-content: center; color: #555; cursor: pointer; }
+        .addr-add:hover { border-color: var(--primary); color: var(--primary); }
+        .addr-content { font-size: 14px; line-height: 1.6; }
+        .addr-actions span { color: var(--link); cursor: pointer; font-size: 13px; margin-right: 15px; }
+
+        /* MODALS (UPDATED FOR BIG CONTENT) */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); }
+        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 40px; border: 1px solid #888; width: 90%; max-width: 800px; border-radius: 10px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .close { position: absolute; right: 25px; top: 20px; color: #aaa; font-size: 32px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .close:hover { color: #000; }
+        
+        /* Typography inside Policy Modals */
+        .policy-text { font-family: "Segoe UI", sans-serif; color: #333; line-height: 1.8; }
+        .policy-text h2 { color: var(--primary); border-bottom: 3px solid var(--btn-main); padding-bottom: 15px; margin-bottom: 30px; font-size: 28px; }
+        .policy-text h4 { margin-top: 30px; margin-bottom: 15px; font-size: 18px; color: #000; border-left: 4px solid var(--primary); padding-left: 15px; }
+        .policy-text p { margin-bottom: 15px; font-size: 15px; text-align: justify; }
+        .policy-text ul { margin-left: 20px; list-style: disc; margin-bottom: 20px; }
+        .policy-text li { margin-bottom: 10px; font-size: 15px; }
+        .policy-text strong { color: var(--primary); }
+
+        /* BLOG */
+        .blog-container { display: flex; gap: 30px; }
+        .blog-main { flex: 2.5; }
+        .blog-sidebar { flex: 1; border-left: 1px solid #eee; padding-left: 30px; }
+        .blog-post { background: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .expert-box { background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid var(--btn-main); margin-bottom: 20px; }
+
+        /* ADMIN STYLES */
+        .admin-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 800px; margin: auto; margin-bottom: 30px; }
+        .admin-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .admin-table th { background: var(--primary); color: white; padding: 10px; text-align: left; }
+        .admin-table td { border-bottom: 1px solid #eee; padding: 10px; }
+        .edit-btn { background: #1976D2; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px; }
+        .del-btn { background: #d32f2f; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; }
+        
+        /* BACK TO TOP BUTTON */
+        #backTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--btn-main);
+            color: black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        #backTop:hover { background-color: var(--btn-hover); transform: translateY(-5px); }
+
+        @media (max-width: 900px) {
+            .dt-layout, .rev-wrap, .chk-wrap, .cart-grid, .f-grid, .wish-grid, .blog-container, .acc-grid, .addr-grid { flex-direction: column; }
+            .dt-left { position: static; flex-direction: column-reverse; }
+            .thumbs-col { flex-direction: row; overflow-x: auto; }
+            .nav-item span { display: none; }
+            .blog-sidebar { border-left: none; padding-left: 0; }
+            #backTop { bottom: 20px; right: 20px; width: 45px; height: 45px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="top">
+        <div class="h-top">
+            <div class="logo" onclick="goHome()">
+                <i class="fas fa-leaf"></i> Andaman Nursery
+                <span>Premium Quality</span>
+            </div>
+            <div class="search-wrap">
+                <input type="text" class="search-in" id="search" placeholder="Search 100+ items..." onkeyup="doSearch()">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-icons">
+                <div class="nav-item" onclick="checkAuthUser()">
+                    <i class="fas fa-user"></i> <span id="uNameDisp">Sign In</span>
+                </div>
+                <div class="nav-item" onclick="openAdminLogin()">
+                    <i class="fas fa-user-shield"></i> <span>Admin</span>
+                </div>
+                <div class="nav-item" onclick="goWishlist()">
+                    <i class="fas fa-heart"></i> <span class="badge" id="wCount">0</span> <span>Wishlist</span>
+                </div>
+                <div class="nav-item" onclick="goCart()">
+                    <i class="fas fa-shopping-cart"></i> <span class="badge" id="cCount">0</span> <span>Cart</span>
+                </div>
+            </div>
+        </div>
+        <div class="h-sub">
+            <span onclick="filter('All')">All Plants</span>
+            <span onclick="filter('Fruit')">Fruits</span>
+            <span onclick="filter('Flower')">Flowers</span>
+            <span onclick="filter('Spice')">Spices</span>
+        </div>
+    </header>
+
+    <button id="backTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+    <div id="home" class="page active">
+        <div class="banner" id="mainBanner">
+            <video id="bannerVid" class="banner-bg" autoplay muted loop style="display:none;"></video>
+            <img id="bannerImg" class="banner-bg" src="https://placehold.co/1500x500/2e8b57/white?text=Nature+at+Your+Doorstep" alt="Banner">
+            <div class="banner-overlay"></div>
+            <div class="banner-content">
+                <div class="offer-badge" id="offerBadgeDisp">🎉 New Year Offer: Flat 20% Off</div>
+                <div class="banner-txt">
+                    <h1>Bring Nature Home</h1>
+                    <p>Authentic Andaman Varieties now in Mainland India.</p>
+                    <button class="shop-btn" onclick="filter('All')">Shop Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 40px;">
+            <div class="section-head">Featured Plants</div>
+            <div class="p-grid" id="grid"></div>
+        </div>
+    </div>
+
+    <div id="details" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goHome()"><i class="fas fa-arrow-left"></i> Back to results</div></div>
+        <div class="container">
+            <div class="dt-layout">
+                <div class="dt-left">
+                    <div class="thumbs-col"><img src="" class="t-img active" id="t1" onmouseover="swapImg(this)"><img src="" class="t-img" id="t2" onmouseover="swapImg(this)"><img src="" class="t-img" id="t3" onmouseover="swapImg(this)"><img src="" class="t-img" id="t4" onmouseover="swapImg(this)"></div>
+                    <div class="main-img"><img id="dImg" src=""></div>
+                </div>
+                <div class="dt-mid">
+                    <h1 id="dTitle" class="dt-head"></h1>
+                    <div class="rating-box"><span class="stars" id="dStars"></span> <span id="dRateCount"></span></div>
+                    <div class="price-box"><span class="deal-tag">New Year Deal</span><span class="final-price">₹<span id="dPrice"></span></span><div style="color:#666; font-size:13px; margin-top:5px;">M.R.P.: <span style="text-decoration:line-through;">₹<span id="dMrp"></span></span></div></div>
+                    <div class="specs-grid" id="specsGrid"></div>
+                    <div class="about-sec"><h3>About this item</h3><ul id="aboutList"></ul></div>
+                </div>
+                <div class="dt-right">
+                    <div class="final-price" style="margin-bottom:10px;">₹<span id="dBuyPrice"></span></div>
+                    <div class="in-stock">In Stock.</div>
+                    <div style="font-size:13px; color:#555; margin-bottom:15px;">Ships from <strong>Odisha</strong></div>
+                    <label class="qty-label" style="font-weight:bold; font-size:12px;">Quantity</label>
+                    <select id="dQty" class="qty-box"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+                    <button class="action-btn b-cart" onclick="addToCart()">Add to Cart</button>
+                    <button class="action-btn b-buy" onclick="buyNow()">Buy Now</button>
+                    <div class="dt-actions"><button class="icon-btn" id="wishBtn" onclick="toggleWishlistCurr()"><i class="fas fa-heart"></i> Wishlist</button><button class="icon-btn" onclick="openShareModal()"><i class="fas fa-share-alt"></i> Share</button></div>
+                    <div style="margin-top:15px; font-size:12px; color:#666;"><p><i class="fas fa-lock"></i> Secure Payment</p><p><i class="fas fa-truck"></i> Fast Delivery (₹80)</p></div>
+                </div>
+            </div>
+            <div class="sug-wrap"><h3 style="font-size:20px; font-weight:700; margin-bottom:15px; color:var(--primary); margin-top:40px; border-top:1px solid #ddd; padding-top:20px;">Customers who viewed this also viewed</h3><div class="sug-list" id="sugList"></div></div>
+            <div class="rev-wrap">
+                <div class="graph-col"><h3 style="font-size:20px; font-weight:700; margin-bottom:15px;">Customer Reviews</h3><div style="color:var(--star); margin-bottom:10px; font-size:18px;" id="avgRatingDisp"></div><div class="bar-row"><span>5 star</span> <div class="bar-bg"><div class="bar-fill" style="width:72%"></div></div> <span>72%</span></div><div class="bar-row"><span>4 star</span> <div class="bar-bg"><div class="bar-fill" style="width:14%"></div></div> <span>14%</span></div><div class="bar-row"><span>3 star</span> <div class="bar-bg"><div class="bar-fill" style="width:8%"></div></div> <span>8%</span></div></div>
+                <div class="review-col"><h3 style="font-size:18px; font-weight:700; margin-bottom:20px;">Top Reviews</h3><div id="reviewsList"></div><div class="see-more-link" onclick="openReviews()">See all 1,240 reviews ></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goHome()">← Back to Shop</div></div>
+        <div class="container">
+            <h2 style="color:var(--primary); margin-bottom:20px; text-align:center;">Admin Dashboard</h2>
+            
+            <div class="admin-box" style="border-left: 5px solid var(--btn-main);">
+                <h3 style="margin-bottom:15px; color:var(--primary);">Site Settings (Offer & Banner)</h3>
+                <div class="admin-row">
+                    <div>
+                        <label style="font-weight:bold; font-size:12px;">Offer Badge Text</label>
+                        <input type="text" id="setOffer" class="inp-field" placeholder="e.g. Holi Sale: 50% Off">
+                    </div>
+                    <div>
+                        <label style="font-weight:bold; font-size:12px;">Banner Media Type</label>
+                        <select id="setMediaType" class="inp-field">
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="admin-row">
+                    <div style="grid-column: span 2;">
+                        <label style="font-weight:bold; font-size:12px;">Banner URL (Image Link or Video File Name)</label>
+                        <input type="text" id="setMediaUrl" class="inp-field" placeholder="https://... OR myvideo.mp4">
+                        <p style="font-size:11px; color:#666;">*For video, put file in same folder and type name (e.g. 'banner.mp4')</p>
+                    </div>
+                </div>
+                <button class="action-btn" style="background:var(--secondary); color:white;" onclick="saveSettings()">Save Settings</button>
+            </div>
+
+            <div class="admin-box">
+                <h3 style="margin-bottom:15px; color:var(--primary);" id="formTitle">Add New Product</h3>
+                <input type="hidden" id="editId">
+                <div class="admin-row">
+                    <input type="text" id="newImg" class="inp-field" placeholder="Image URL (Leave empty for default)">
+                    <input type="text" id="newName" class="inp-field" placeholder="Plant Name">
+                </div>
+                <div class="admin-row">
+                    <input type="number" id="newPrice" class="inp-field" placeholder="Price (₹)">
+                    <select id="newCat" class="inp-field">
+                        <option value="Fruit">Fruit</option>
+                        <option value="Flower">Flower</option>
+                        <option value="Spice">Spice</option>
+                    </select>
+                </div>
+                <button class="action-btn b-buy" style="margin-top:10px;" id="addBtn" onclick="addOrUpdateProduct()">Add Product</button>
+                <button class="action-btn" style="margin-top:10px; background:#ccc; display:none;" id="cancelBtn" onclick="cancelEdit()">Cancel</button>
+            </div>
+
+            <div class="admin-box" style="margin-top:30px;">
+                <h3 style="margin-bottom:15px; color:var(--primary);">Manage Products</h3>
+                <table class="admin-table">
+                    <thead><tr><th>Name</th><th>Price</th><th>Cat</th><th>Actions</th></tr></thead>
+                    <tbody id="adminList"></tbody>
+                </table>
+                <button class="action-btn" style="background:#333; color:white; margin-top:20px;" onclick="resetDefault()">Reset to Default</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content" style="max-width:350px; text-align:center;">
+            <span class="close" onclick="closeAdminLogin()">×</span>
+            <h3 style="margin-bottom:20px; color:var(--primary);">Admin Login</h3>
+            <input type="password" id="adminPassInput" class="inp-field" placeholder="Enter Password">
+            <div style="text-align:left; margin-bottom:15px;">
+                <input type="checkbox" id="showPassCheck" onclick="togglePass()">
+                <label for="showPassCheck" style="font-size:13px;">Show Password</label>
+            </div>
+            <button class="action-btn b-buy" onclick="checkAdminPassword()">Login</button>
+        </div>
+    </div>
+
+    <div id="account-page" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goHome()">← Back to Home</div></div>
+        <div class="container">
+            <h2 style="font-size:28px; margin-bottom:20px;">Your Account</h2>
+            <div class="acc-grid">
+                <div class="acc-card" onclick="goOrders()"><div class="acc-icon"><i class="fas fa-box"></i></div><div class="acc-info"><h3>Your Orders</h3><p>Track, return, or buy things again</p></div></div>
+                <div class="acc-card" onclick="alert('Coming Soon')"><div class="acc-icon"><i class="fas fa-lock"></i></div><div class="acc-info"><h3>Login & security</h3><p>Edit login, name, and mobile number</p></div></div>
+                <div class="acc-card" onclick="goAddresses()"><div class="acc-icon"><i class="fas fa-map-marker-alt"></i></div><div class="acc-info"><h3>Your Addresses</h3><p>Edit addresses for orders and gifts</p></div></div>
+                <div class="acc-card" onclick="goPage('contact-page')"><div class="acc-icon"><i class="fas fa-headset"></i></div><div class="acc-info"><h3>Contact Us</h3><p>View map, email & phone number</p></div></div>
+                <div class="acc-card" onclick="alert('Coming Soon')"><div class="acc-icon"><i class="fas fa-wallet"></i></div><div class="acc-info"><h3>Andaman Pay <span style="font-size:11px; color:red;">(Coming Soon)</span></h3><p>View balance and payment settings</p></div></div>
+                <div class="acc-card" onclick="logout()" style="border-color:#d11a2a;"><div class="acc-icon" style="color:#d11a2a;"><i class="fas fa-sign-out-alt"></i></div><div class="acc-info"><h3 style="color:#d11a2a;">Logout</h3><p>Sign out of your account</p></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="address-page" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goPage('account-page')">← Back to Account</div></div>
+        <div class="container"><h2 style="margin-bottom:20px;">Your Addresses</h2><div class="addr-grid" id="addrList"></div></div>
+    </div>
+    <div id="add-address-page" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goAddresses()">← Back to Addresses</div></div>
+        <div class="auth-box" style="max-width:500px;"><h2 style="text-align:center;">Add New Address</h2><input type="text" id="newAddrName" class="inp-field" placeholder="Full Name"><input type="text" id="newAddrPhone" class="inp-field" placeholder="Mobile Number"><input type="text" id="newAddrPin" class="inp-field" placeholder="Pincode"><input type="text" id="newAddrFlat" class="inp-field" placeholder="Flat, House no, Building"><input type="text" id="newAddrArea" class="inp-field" placeholder="Area, Street, Sector"><div style="display:flex; gap:10px;"><input type="text" id="newAddrCity" class="inp-field" placeholder="City"><input type="text" id="newAddrState" class="inp-field" placeholder="State"></div><button class="action-btn b-buy" onclick="saveNewAddress()">Add Address</button></div>
+    </div>
+
+    <div id="about" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goHome()">← Back to Home</div></div>
+        <div class="container" style="padding:50px; background:white; margin-top:20px; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+            <div style="text-align:center; margin-bottom:50px; border-bottom:1px solid #eee; padding-bottom:30px;">
+                <h1 style="color:#053B2F; font-size:36px; margin-bottom:15px;">The Andaman Nursery Saga</h1>
+                <p style="font-size:20px; color:#555; font-style:italic;">"From the Islands of the Ocean to the Soil of Odisha."</p>
+            </div>
+            <div style="margin-bottom:50px;">
+                <h2 style="color:#F9A825; text-transform:uppercase; font-size:22px; margin-bottom:20px; letter-spacing:1px;">Chapter 1: The Genesis</h2>
+                <p style="font-size:16px; color:#333; line-height:1.8; margin-bottom:15px; text-align:justify;">
+                    The story of <strong>Andaman Nursery</strong> is not just a story of business; it is a story of a revolution in Indian horticulture. It began with a vision held by our founder, <strong>Mr. Papan Mistry</strong>. Born and raised with a deep connection to the soil, Mr. Mistry observed a glaring gap in the agricultural landscape of mainland India, specifically in Odisha. Farmers in Nabarangpur and surrounding districts were toiling hard, yet their yields were limited by the genetic potential of local plant varieties.
+                </p>
+                <p style="font-size:16px; color:#333; line-height:1.8; margin-bottom:15px; text-align:justify;">
+                    This question led to the birth of Andaman Nursery. Established in <strong>Bharsundi, Umerkote Block, Nabarangpur District</strong>, we set out on a mission to bridge the oceanic gap. We didn't just want to sell plants; we wanted to transfer a legacy of high-yield agriculture from the islands to the mainland.
+                </p>
+            </div>
+            <div style="margin-bottom:50px; background:#F9F9F9; padding:30px; border-radius:10px;">
+                <h2 style="color:#053B2F; text-transform:uppercase; font-size:22px; margin-bottom:20px; letter-spacing:1px;">Chapter 2: The Challenge of Climate Shock</h2>
+                <p style="font-size:16px; color:#333; line-height:1.8; margin-bottom:15px; text-align:justify;">
+                    Bringing plants from Andaman to mainland India is scientifically complex. The Andaman Islands enjoy a tropical, humid maritime climate with consistent rainfall. In contrast, mainland India, and specifically Odisha, experiences extreme temperature variations—scorching summers and dry winters. Most nurseries fail because they simply import saplings and sell them immediately.
+                </p>
+            </div>
+            <div style="margin-bottom:50px;">
+                <h2 style="color:#F9A825; text-transform:uppercase; font-size:22px; margin-bottom:20px; letter-spacing:1px;">Chapter 3: The Science of "Hardening"</h2>
+                <p style="font-size:16px; color:#333; line-height:1.8; margin-bottom:15px; text-align:justify;">
+                    At Andaman Nursery, we pioneered the <strong>Advanced Acclimatization Process</strong>, commonly known as 'Hardening'. This is our trade secret and our biggest strength. We process every sapling through a rigorous 3-stage adaptation cycle before it is ever listed for sale.
+                </p>
+            </div>
+            <div style="text-align:center; margin-top:50px; border-top:1px solid #eee; padding-top:30px;">
+                <h3 style="color:#B12704; font-family:'Georgia', serif;">"Plant a Tree, Plant a Legacy."</h3>
+                <p style="margin-top:10px; font-weight:bold;">- Papan Mistry, Founder</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="blog" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goHome()">← Back to Home</div></div>
+        <div class="container" style="padding-top:20px;">
+            <div style="text-align:center; margin-bottom:40px; padding-bottom:20px; border-bottom:1px solid #ddd;">
+                <h1 style="color:#053B2F; font-size:36px; margin-bottom:10px;">The Andaman Agriculture Handbook</h1>
+                <p style="font-size:18px; color:#555;">Expert Guides by Papan Mistry & Plant Doctor Paritosh Mistry</p>
+            </div>
+            <div class="blog-container">
+                <div class="blog-main" style="flex:3;">
+                    <div class="blog-post" style="border-left:5px solid #053B2F; padding:30px; background:white; margin-bottom:40px; box-shadow:0 2px 15px rgba(0,0,0,0.05); border-radius:8px;">
+                        <span style="background:#E8F5E9; color:#053B2F; padding:5px 10px; font-weight:bold; font-size:12px; border-radius:4px;">PREMIUM GUIDE</span>
+                        <h2 style="margin-top:15px; margin-bottom:10px; color:#1B1B1B; font-size:28px;">1. The Ultimate Guide to Thai Pink & Hybrid Coconut Farming</h2>
+                        <div style="color:#666; font-size:13px; margin-bottom:20px;">By <strong>Papan Mistry</strong> | Estimated Read Time: 15 Mins</div>
+                        <img src="https://placehold.co/800x400/053B2F/FFF?text=Hybrid+Coconut+Farming" style="width:100%; border-radius:8px; margin-bottom:20px;">
+                        <p style="line-height:1.8; color:#444; margin-bottom:15px;">
+                            Coconut farming has evolved. The days of waiting 7-8 years for a Tall variety tree to yield fruit are over. With our <strong>Andaman Hybrid Dwarf Varieties</strong>, you can start harvesting in just <strong>2.5 to 3 years</strong>.
+                        </p>
+                        <h3 style="color:#053B2F; margin-top:25px;">Step 1: Land Preparation & Pit Size</h3>
+                        <p style="line-height:1.8; color:#444;">Do not plant blindly. Follow the <strong>3x3x3 Rule</strong>:</p>
+                        <ul style="margin-left:20px; line-height:1.8; color:#444; margin-bottom:15px;">
+                            <li><strong>Pit Size:</strong> 3 feet (Length) x 3 feet (Width) x 3 feet (Depth).</li>
+                            <li><strong>Spacing:</strong> Maintain a distance of 20-25 feet between two trees.</li>
+                            <li><strong>Soil Mix:</strong> Topsoil (50%) + Cow Dung Compost (30%) + Sand (10%) + Neem Cake.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog-sidebar" style="flex:1; min-width:300px;">
+                    <div style="background:white; padding:25px; border-radius:8px; border:1px solid #eee; margin-bottom:30px; text-align:center;">
+                        <div style="width:80px; height:80px; background:#053B2F; color:white; border-radius:50%; margin:0 auto 15px; display:flex; align-items:center; justify-content:center; font-size:30px;"><i class="fas fa-user-md"></i></div>
+                        <h3 style="margin-bottom:5px;">Plant Doctor</h3>
+                        <p style="color:#B12704; font-weight:bold;">Mr. Paritosh Mistry</p>
+                        <p style="font-size:13px; color:#666; margin-top:10px;">Got yellow leaves? Stunted growth? Send a photo.</p>
+                        <button class="action-btn" onclick="shareWA()" style="width:100%; margin-top:15px; font-size:14px; background:#25D366; color:white;"><i class="fab fa-whatsapp"></i> +91 7326833721</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="career" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goHome()">← Back to Home</div></div>
+        <div class="container" style="padding:40px; background:white; margin-top:20px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+            <h1 style="color:#053B2F; margin-bottom:20px; border-bottom:2px solid #F9A825; padding-bottom:10px;">Grow Your Career with Nature</h1>
+            <p style="font-size:16px; color:#555; line-height:1.6; margin-bottom:30px;">
+                At <strong>Andaman Nursery</strong>, we are on a mission to bring the exotic biodiversity of the Andaman Islands to every home in India. Based in <strong>Nabarangpur, Odisha</strong>, we are a fast-growing team passionate about agriculture and innovation.
+            </p>
+            <h3 style="color:#053B2F; margin-bottom:20px;">Current Openings</h3>
+            <div style="margin-bottom:25px; border-bottom:1px solid #eee; padding-bottom:15px;">
+                <h4 style="font-size:18px; color:#1B1B1B;">1. Plant Care Specialist (Mali/Supervisor)</h4>
+                <p style="font-size:13px; color:#666; margin-top:5px;"><strong>Location:</strong> Bharsundi, Nabarangpur</p>
+                <p style="font-size:14px; color:#444; margin-top:10px;">Responsibilities include watering schedule management, organic fertilizer application, and monitoring plant health in the hardening unit.</p>
+            </div>
+            <div style="background:#F1F8E9; padding:25px; border-left:5px solid #053B2F; border-radius:4px; margin-top:30px;">
+                <h3 style="margin-top:0; color:#053B2F;">How to Apply</h3>
+                <p style="margin-bottom:15px; color:#333;">Interested candidates can send their CV or details to:</p>
+                <div style="font-weight:bold; font-size:16px; margin-bottom:5px;"><i class="fas fa-envelope"></i> papanmistry25@gmail.com</div>
+                <div style="font-weight:bold; font-size:16px;"><i class="fas fa-phone"></i> +91 7853984943</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-page" class="page">
+        <div class="back-strip"><div class="container back-content" onclick="goPage('account-page')"><i class="fas fa-arrow-left"></i> Back to Account</div></div>
+        <div class="container" style="padding-top:20px;">
+            <h1 style="color:#053B2F; text-align:center; margin-bottom:10px;">Get in Touch</h1>
+            <p style="text-align:center; color:#666; margin-bottom:40px;">Visit our nursery or reach out via phone/email.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+                <div style="flex:1; min-width:300px; max-width:500px;">
+                    <div style="background:white; padding:25px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05); display:flex; gap:20px; align-items:center; margin-bottom:20px; border-left:5px solid #F9A825;">
+                        <div style="width:50px; height:50px; background:#FFF8E1; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#F9A825; font-size:24px;"><i class="fas fa-phone-alt"></i></div>
+                        <div><h3 style="margin:0; font-size:18px; color:#333;">Call Us</h3><p style="margin:5px 0 0; color:#555; font-weight:bold;">+91 7853984943</p></div>
+                    </div>
+                    <div style="background:white; padding:25px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05); display:flex; gap:20px; align-items:center; margin-bottom:20px; border-left:5px solid #F57F17;">
+                        <div style="width:50px; height:50px; background:#FFF3E0; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#F57F17; font-size:24px;"><i class="fas fa-envelope"></i></div>
+                        <div><h3 style="margin:0; font-size:18px; color:#333;">Email Us</h3><p style="margin:5px 0 0; color:#555; font-weight:bold;">papanmistry25@gmail.com</p></div>
+                    </div>
+                </div>
+                <div style="flex:1; min-width:300px; height:450px; background:white; padding:10px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05);">
+                    <h3 style="margin:0 0 15px 10px; color:#053B2F;">Locate Us</h3>
+                    <iframe width="100%" height="90%" style="border:0; border-radius:8px;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=19.907170,82.114438&z=15&output=embed"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="shareModal" class="modal"><div class="modal-content" style="max-width:400px; text-align:center;"><span class="close" onclick="closeShare()">×</span><h3>Share</h3><div style="display:grid; gap:10px;"><button class="action-btn" style="background:var(--primary); color:white;" onclick="shareNative()">App</button><button class="action-btn" style="background:#25D366; color:white;" onclick="shareWA()">WhatsApp</button><button class="action-btn" style="background:#eee; color:#333;" onclick="copyLink()">Copy Link</button></div></div></div>
+    <div id="reviewModal" class="modal"><div class="modal-content"><span class="close" onclick="closeReviews()">×</span><h2>Reviews</h2><div id="allReviewsList" style="margin-top:15px;"></div></div></div>
+    
+    <div id="policyModal" class="modal">
+        <div class="modal-content policy-text">
+            <span class="close" onclick="closePolicy()">×</span>
+            <div id="policyContent"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="f-grid">
+                <div class="f-col">
+                    <h4>Get to Know Us</h4>
+                    <ul>
+                        <li onclick="goPage('about')">About Us</li>
+                        <li onclick="goPage('career')">Careers</li>
+                        <li onclick="goPage('blog')">Blog</li>
+                        <li onclick="openPolicy('science')">Andaman Science</li>
+                    </ul>
+                </div>
+                <div class="f-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li onclick="alert('Redirecting to Facebook...')"><i class="fab fa-facebook"></i> Facebook</li>
+                        <li onclick="alert('Redirecting to Instagram...')"><i class="fab fa-instagram"></i> Instagram</li>
+                        <li onclick="alert('Redirecting to Twitter...')"><i class="fab fa-twitter"></i> Twitter</li>
+                    </ul>
+                </div>
+                <div class="f-col">
+                    <h4>Policy</h4>
+                    <ul>
+                        <li onclick="openPolicy('return')">Return Policy</li>
+                        <li onclick="openPolicy('terms')">Terms & Conditions</li>
+                        <li onclick="openPolicy('privacy')">Privacy Policy</li>
+                        <li onclick="openPolicy('security')">Security</li>
+                    </ul>
+                </div>
+                <div class="f-col">
+                    <h4>Help</h4>
+                    <ul>
+                        <li onclick="checkAuthUser()">Your Account</li>
+                        <li onclick="goOrders()">Track Order</li>
+                        <li onclick="goPage('contact-page')">Contact Us</li>
+                        <li onclick="openPolicy('return_center')">Returns Centre</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 Andaman Nursery. All Rights Reserved. <br>
+                <span style="font-size:11px; opacity:0.7;">Made with ❤️ in Odisha.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- GLOBAL VARIABLES ---
+        let user = JSON.parse(localStorage.getItem("andamanUser"));
+        let wishlist = JSON.parse(localStorage.getItem("andamanWishlist")) || [];
+        let settings = JSON.parse(localStorage.getItem("andamanSettings")) || {
+            offerText: "🎉 New Year Offer: Flat 20% Off",
+            bannerType: "image",
+            bannerUrl: "https://placehold.co/1500x500/2e8b57/white?text=Nature+at+Your+Doorstep"
+        };
+        let curr = null;
+        let buyQty = 1;
+        let cart = [];
+        let isCartCheckout = false;
+        let selectedAddrIndex = 0;
+        let editingId = null;
+
+        if(user) document.getElementById('uNameDisp').innerText = "Hello, " + user.name.split(" ")[0];
+        else document.getElementById('uNameDisp').innerText = "Sign In";
+        document.getElementById('wCount').innerText = wishlist.length;
+
+        // --- DATA ---
+        const defaultPlants = [
+            {id:1, name:"Thai Pink Coconut Tree Height 2-3 Feet Dwarf Variety Hybrid", price:450, cat:"Fruit"},
+            {id:2, name:"Areca Nut (Supadi) Hybrid High Yielding Betel Nut Plant", price:150, cat:"Spice"},
+            {id:3, name:"Mango Amrapali Grafted Plant (1-2 Ft) All Season Sweet", price:250, cat:"Fruit"},
+            {id:4, name:"Kagizi Lemon Paper Lime Plant (Baramasi) Vitamin C Rich", price:150, cat:"Fruit"},
+            {id:5, name:"Black Pepper Spice Plant Climber Variety High Pungency", price:150, cat:"Spice"},
+            {id:6, name:"Red Rose English Grafted Flowering Plant (Large Blooms)", price:160, cat:"Flower"},
+            {id:7, name:"Allahabad Safeda Guava Plant Grafted Sweet Fruit", price:180, cat:"Fruit"},
+            {id:8, name:"Thai Jackfruit All Season Bearing Grafted Sweet Plant", price:350, cat:"Fruit"},
+            {id:9, name:"Green Cardamom (Elaichi) Spice Plant Shade Loving", price:250, cat:"Spice"},
+            {id:10, name:"Clove (Laung) Spice Tree Sapling Tropical Aromatic", price:220, cat:"Spice"}
+        ];
+        const dummy = ["Mango Kesar", "Mango Dasheri", "Mango Langra", "Guava Pink", "Lemon Seedless", "Coffee Plant", "Cashew", "Litchi", "Avocado", "Cherry", "Strawberry", "Dragon Fruit", "Papaya", "Banana", "Orange", "Mosambi", "Fig", "Star Fruit", "Amla", "Tamarind", "Jamun", "Custard Apple", "Water Apple", "Rubber Plant", "Snake Plant", "Money Plant", "Aloe Vera", "Tulsi", "Ashoka", "Bamboo", "Palm", "Croton", "Spider Plant", "Peace Lily", "Fern", "Cactus", "Jade", "Bonsai", "Lotus", "Lily", "Orchid", "Lavender", "Mint", "Coriander", "Chilli", "Tomato", "Brinjal", "Okra", "Spinach", "Methi", "Carrot", "Radish", "Onion", "Potato", "Ginger", "Garlic", "Turmeric", "Curry Leaf", "Drumstick", "Papaya Seeds", "Watermelon", "Muskmelon", "Pumpkin", "Bottle Gourd", "Bitter Gourd", "Ridge Gourd", "Cucumber", "Beans", "Peas", "Corn", "Wheat", "Rice", "Bajra", "Jowar", "Mustard", "Sunflower"];
+        dummy.forEach((n, i) => {
+            let r = (Math.random() * 1.5) + 3.5;
+            let c = (i%3===0) ? "Fruit" : ((i%3===1) ? "Flower" : "Spice");
+            defaultPlants.push({id: 11+i, name: `${n} Premium Hybrid Plant High Quality`, price: 150+Math.floor(Math.random()*300), cat: c, rating: r.toFixed(1)});
+        });
+
+        let plants = JSON.parse(localStorage.getItem('andamanPlants')) || defaultPlants;
+        applySettings();
+        renderHome(plants);
+
+        // --- FUNCTIONS ---
+        function applySettings() {
+            const badges = document.querySelectorAll('.offer-badge');
+            badges.forEach(b => b.innerText = settings.offerText);
+            const vid = document.getElementById('bannerVid');
+            const img = document.getElementById('bannerImg');
+            if(settings.bannerType === 'video') {
+                img.style.display = 'none'; vid.style.display = 'block'; vid.src = settings.bannerUrl; vid.load();
+            } else {
+                vid.style.display = 'none'; img.style.display = 'block'; img.src = settings.bannerUrl;
+            }
+        }
+
+        function openAdminLogin() { document.getElementById('adminLoginModal').style.display = 'block'; }
+        function closeAdminLogin() { document.getElementById('adminLoginModal').style.display = 'none'; }
+        function togglePass() { const x = document.getElementById("adminPassInput"); x.type = (x.type === "password") ? "text" : "password"; }
+        function checkAdminPassword() {
+            if(document.getElementById('adminPassInput').value === "Papan@100") {
+                closeAdminLogin(); renderAdminList(); loadAdminSettings(); goPage('admin-panel');
+            } else alert("Incorrect Password!");
+        }
+        function loadAdminSettings() {
+            document.getElementById('setOffer').value = settings.offerText;
+            document.getElementById('setMediaType').value = settings.bannerType;
+            document.getElementById('setMediaUrl').value = settings.bannerUrl;
+        }
+        function saveSettings() {
+            const o = document.getElementById('setOffer').value;
+            const t = document.getElementById('setMediaType').value;
+            const u = document.getElementById('setMediaUrl').value;
+            if(!o || !u) { alert("Offer text and URL required"); return; }
+            settings = { offerText: o, bannerType: t, bannerUrl: u };
+            localStorage.setItem("andamanSettings", JSON.stringify(settings));
+            applySettings(); alert("Settings Saved!");
+        }
+        function addOrUpdateProduct() {
+            const n = document.getElementById('newName').value;
+            const p = document.getElementById('newPrice').value;
+            const c = document.getElementById('newCat').value;
+            const i = document.getElementById('newImg').value;
+            if(!n || !p) { alert("Name and Price are required!"); return; }
+            if(editingId) {
+                const index = plants.findIndex(x => x.id === editingId);
+                if(index !== -1) { plants[index].name = n; plants[index].price = parseInt(p); plants[index].cat = c; plants[index].img = i; alert("Product Updated!"); }
+            } else {
+                plants.unshift({ id: Date.now(), name: n, price: parseInt(p), cat: c, img: i, rating: 5.0 });
+                alert("Product Added!");
+            }
+            saveData(); renderAdminList(); cancelEdit();
+        }
+        function editProduct(id) {
+            const p = plants.find(x => x.id === id);
+            if(p) {
+                editingId = id;
+                document.getElementById('newName').value = p.name; document.getElementById('newPrice').value = p.price;
+                document.getElementById('newCat').value = p.cat; document.getElementById('newImg').value = p.img || "";
+                document.getElementById('formTitle').innerText = "Edit Product"; document.getElementById('addBtn').innerText = "Update Product";
+                document.getElementById('cancelBtn').style.display = "inline-block";
+                document.querySelector('.admin-box').scrollIntoView({behavior:'smooth'});
+            }
+        }
+        function cancelEdit() {
+            editingId = null; document.getElementById('newName').value = ""; document.getElementById('newPrice').value = ""; document.getElementById('newImg').value = "";
+            document.getElementById('formTitle').innerText = "Add New Product"; document.getElementById('addBtn').innerText = "Add Product";
+            document.getElementById('cancelBtn').style.display = "none";
+        }
+        function deleteProduct(id) { if(confirm("Are you sure?")) { plants = plants.filter(p => p.id !== id); saveData(); renderAdminList(); } }
+        function renderAdminList() {
+            const tb = document.getElementById('adminList'); tb.innerHTML = "";
+            plants.forEach(p => { tb.innerHTML += `<tr><td>${p.name}</td><td>₹${p.price}</td><td>${p.cat}</td><td><button class="edit-btn" onclick="editProduct(${p.id})">Edit</button><button class="del-btn" onclick="deleteProduct(${p.id})">Delete</button></td></tr>`; });
+        }
+        function saveData() { localStorage.setItem('andamanPlants', JSON.stringify(plants)); }
+        function resetDefault() { if(confirm("Reset to original?")) { localStorage.removeItem('andamanPlants'); localStorage.removeItem('andamanSettings'); location.reload(); } }
+
+        function getStars(r) { let s=""; for(let i=1;i<=5;i++) s+= i<=r?'<i class="fas fa-star"></i>':(i-0.5<=r?'<i class="fas fa-star-half-alt"></i>':'<i class="far fa-star"></i>'); return s; }
+        function goPage(id) { document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+        function goHome() { renderHome(plants); goPage('home'); }
+        function goCart() { if(cart.length===0){alert("Cart Empty");return;} renderCartPage(); goPage('cart-page'); }
+        function checkAuthUser() { if(user) goPage('account-page'); else goPage('auth'); }
+        function checkAuthAction() { if(user) return true; else { alert("Please login."); goPage('auth'); return false; } }
+        function goOrders() { if(checkAuthAction()) { const list = document.getElementById('orderListContainer'); if(!user.orders || user.orders.length===0) alert("No orders yet."); else alert("You have " + user.orders.length + " past orders."); }}
+        function logout() { localStorage.removeItem("andamanUser"); user=null; document.getElementById('uNameDisp').innerText="Sign In"; goHome(); }
+        function goAddresses() {
+            const list = document.getElementById('addrList'); list.innerHTML = `<div class="addr-box addr-add" onclick="goPage('add-address-page')"><h2>+</h2><h3>Add Address</h3></div>`;
+            if(user.addresses) { user.addresses.forEach((ad, i) => { list.innerHTML += `<div class="addr-box"><div class="addr-content"><strong>${ad.name}</strong><br>${ad.flat}, ${ad.area}<br>${ad.city}, ${ad.state} ${ad.pin}<br>Phone: ${ad.phone}</div><div class="addr-actions"><span>Edit</span><span onclick="delAddress(${i})">Remove</span></div></div>`; }); }
+            goPage('address-page');
+        }
+        function saveNewAddress() {
+            let n=document.getElementById('newAddrName').value, p=document.getElementById('newAddrPhone').value, pi=document.getElementById('newAddrPin').value, f=document.getElementById('newAddrFlat').value, a=document.getElementById('newAddrArea').value, c=document.getElementById('newAddrCity').value, s=document.getElementById('newAddrState').value;
+            if(!n||!p||!f) { alert("Fill all details"); return; }
+            let newAddr = { name:n, phone:p, pin:pi, flat:f, area:a, city:c, state:s };
+            if(!user.addresses) user.addresses = [];
+            user.addresses.push(newAddr); localStorage.setItem("andamanUser", JSON.stringify(user)); goAddresses();
+        }
+        function delAddress(i) { user.addresses.splice(i, 1); localStorage.setItem("andamanUser", JSON.stringify(user)); goAddresses(); }
+        function startCheckout() {
+            const list = document.getElementById('chkAddrList'); list.innerHTML = "";
+            if(user && user.addresses && user.addresses.length > 0) { user.addresses.forEach((ad, i) => { list.innerHTML += `<div style="border:1px solid #ddd; padding:10px; margin-bottom:5px; border-radius:5px; cursor:pointer;" onclick="selectAddr(${i})"><input type="radio" name="addr" ${i===0?'checked':''}> <strong>${ad.name}</strong> ${ad.flat}, ${ad.city} ${ad.pin}</div>`; }); } 
+            else { list.innerHTML = `<div style="border:1px solid #ddd; padding:10px;">Please add an address first.</div>`; }
+            let listHTML = "";
+            if(isCartCheckout) cart.forEach(item => listHTML += `<div style="background:#f9f9f9; padding:10px; margin-bottom:5px;">${item.name} - ₹${item.price} x ${item.qty}</div>`);
+            else { buyQty = parseInt(document.getElementById('dQty').value); listHTML = `<div style="background:#f9f9f9; padding:10px;">${curr.name} - ₹${curr.price} x ${buyQty}</div>`; }
+            document.getElementById('revItems').innerHTML = listHTML; updateTotal(); goPage('checkout');
+        }
+        function selectAddr(i) { selectedAddrIndex = i; }
+        function toggleWishlist(id, btn) { event.stopPropagation(); let idx=wishlist.indexOf(id); if(idx===-1){wishlist.push(id);btn.classList.add('active');}else{wishlist.splice(idx,1);btn.classList.remove('active');} localStorage.setItem("andamanWishlist",JSON.stringify(wishlist)); document.getElementById('wCount').innerText=wishlist.length; }
+        function toggleWishlistCurr() { let idx=wishlist.indexOf(curr.id); if(idx===-1){wishlist.push(curr.id);document.getElementById('wishBtn').classList.add('wish-active');}else{wishlist.splice(idx,1);document.getElementById('wishBtn').classList.remove('wish-active');} localStorage.setItem("andamanWishlist",JSON.stringify(wishlist)); document.getElementById('wCount').innerText=wishlist.length; }
+        function goWishlist() { const grid = document.getElementById('wishGrid'); grid.innerHTML=""; if(wishlist.length===0) grid.innerHTML="<p>Wishlist empty</p>"; else wishlist.forEach(id => { let p = plants.find(x=>x.id===id); if(p) { const img = p.img || `https://placehold.co/300x300/png?text=${p.name.split(' ')[0]}`; grid.innerHTML += `<div class="card" onclick="openDetail(${p.id})"><div class="c-img"><img src="${img}" style="width:100%;height:100%;object-fit:contain;"></div><div class="c-body"><div class="c-title">${p.name}</div><div class="c-price">₹${p.price}</div></div></div>`; } }); goPage('wishlist-page'); }
+        function renderHome(list) { const g = document.getElementById('grid'); g.innerHTML=""; list.forEach(p => { const old = p.price + 150; const r = p.rating || 4.5; const img = p.img || `https://placehold.co/300x300/png?text=${p.name.split(' ')[0]}`; const isWish = wishlist.includes(p.id) ? 'active' : ''; g.innerHTML += `<div class="card" onclick="openDetail(${p.id})"><i class="fas fa-heart card-heart ${isWish}" onclick="toggleWishlist(${p.id}, this)"></i><div class="c-tag">New Year Deal</div><div class="c-img"><img src="${img}" style="width:100%;height:100%;object-fit:contain;"></div><div class="c-body"><div class="c-title">${p.name}</div><div class="c-rate">${getStars(r)}</div><div class="c-price">₹${p.price} <span class="c-old">₹${old}</span></div></div></div>`; }); }
+        function openDetail(id) {
+            curr = plants.find(p=>p.id===id); const old = curr.price + 200; const r = curr.rating || 4.5;
+            document.getElementById('dImg').src = curr.img || `https://placehold.co/600x600/png?text=${curr.name}`;
+            for(let i=1; i<=4; i++) document.getElementById(`t${i}`).src = curr.img || `https://placehold.co/600x600/png?text=${curr.name}+${i}`;
+            document.getElementById('dTitle').innerText = curr.name; document.getElementById('dPrice').innerText = curr.price; document.getElementById('dBuyPrice').innerText = curr.price; document.getElementById('dMrp').innerText = old; document.getElementById('dStars').innerHTML = getStars(r); document.getElementById('dRateCount').innerText = `1240 ratings`; document.getElementById('avgRatingDisp').innerHTML = `${getStars(r)} ${r} out of 5`;
+            if(wishlist.includes(curr.id)) document.getElementById('wishBtn').classList.add('wish-active'); else document.getElementById('wishBtn').classList.remove('wish-active');
+            let specHtml = "", aboutHtml = "";
+            if(curr.cat === "Fruit") { specHtml = `<div class="spec-item"><div class="spec-label">Usage</div><div class="spec-val">Outdoor</div></div><div class="spec-item"><div class="spec-label">Sunlight</div><div class="spec-val">Full Sun</div></div>`; aboutHtml = `<li>High Yield.</li><li>Fruit in 1-2 years.</li>`; } 
+            else { specHtml = `<div class="spec-item"><div class="spec-label">Usage</div><div class="spec-val">Garden</div></div><div class="spec-item"><div class="spec-label">Sunlight</div><div class="spec-val">Partial</div></div>`; aboutHtml = `<li>Decorative.</li><li>Low Maintenance.</li>`; }
+            document.getElementById('specsGrid').innerHTML = specHtml; document.getElementById('aboutList').innerHTML = aboutHtml;
+            let sHtml = ""; let sugs = plants.filter(p=>p.id!==curr.id).sort(()=>0.5-Math.random()).slice(0,50);
+            sugs.forEach(p=>{ sHtml += `<div class="sug-card" onclick="openDetail(${p.id})"><img src="${p.img || 'https://placehold.co/150x150/png?text='+p.name.split(' ')[0]}"><div class="sug-title">${p.name}</div><div class="sug-price">₹${p.price}</div></div>`; });
+            document.getElementById('sugList').innerHTML = sHtml;
+            let rHtml = ""; const revs = ["Good plant", "Fast delivery", "Healthy", "Recommended", "Nice packing"];
+            for(let i=0; i<5; i++) rHtml += `<div class="cust-rev"><div class="cr-head"><i class="fas fa-user-circle"></i> <span class="cr-name">User ${i+1}</span><span class="cr-ver">Verified</span></div><div class="cr-txt">${revs[i]}</div></div>`;
+            document.getElementById('reviewsList').innerHTML = rHtml;
+            goPage('details');
+        }
+        function openShareModal() { document.getElementById('shareModal').style.display = "block"; }
+        function closeShare() { document.getElementById('shareModal').style.display = "none"; }
+        function shareNative() { if (navigator.share) navigator.share({ title: curr.name, url: window.location.href }); else alert("Not supported."); }
+        function shareWA() { window.open(`https://wa.me/?text=${encodeURIComponent(curr.name + " Price: " + curr.price)}`, '_blank'); }
+        function copyLink() { navigator.clipboard.writeText(window.location.href + "?pid=" + curr.id); alert("Link Copied!"); }
+        function openReviews() { document.getElementById('reviewModal').style.display = "block"; }
+        function closeReviews() { document.getElementById('reviewModal').style.display = "none"; }
+        
+        // --- DETAILED POLICY CONTENT (FULL SIZE) ---
+        function openPolicy(type) {
+            let content = "";
+            
+            if(type === 'return') {
+                content = `
+                    <h2 style="color:#D32F2F;">Strict Return & Refund Policy</h2>
+                    <p>Last Updated: January 2025</p>
+                    
+                    <h4>1. Perishable Goods Disclaimer</h4>
+                    <p>We deal in live plants and biological products. Unlike clothes or electronics, plants are living entities that experience stress during transit. Once they leave our care in Odisha, they cannot be 'restocked' or 'resold'. Therefore, we maintain a <strong>STRICT NO-RETURN POLICY</strong> for healthy plants delivered successfully.</p>
+                    
+                    <h4>2. Dead on Arrival (DOA) - The Only Exception</h4>
+                    <p>We understand that shipping can be unpredictable. If your plant arrives completely dead or dried up, we offer a <strong>Free Replacement</strong>.</p>
+                    <ul>
+                        <li><strong>Mandatory Proof:</strong> You must record an unboxing video without cuts, showing the label and the plant condition immediately upon opening.</li>
+                        <li><strong>Timeline:</strong> This video must be sent to our WhatsApp (+91 7853984943) within <strong>2 hours</strong> of delivery marking. Claims made after this window will be rejected.</li>
+                    </ul>
+
+                    <h4>3. What is NOT Covered</h4>
+                    <p>The following are normal travel symptoms and NOT grounds for refund:</p>
+                    <ul>
+                        <li>Yellowing of a few bottom leaves (Stress reaction).</li>
+                        <li>Dropping of flowers or small buds.</li>
+                        <li>Minor breakage of small twigs (Pruning helps regrowth).</li>
+                    </ul>
+                `;
+            } 
+            else if(type === 'terms') {
+                content = `
+                    <h2 style="color:#053B2F;">Terms & Conditions of Service</h2>
+                    <p>Please read carefully before purchasing.</p>
+
+                    <h4>1. User Agreement</h4>
+                    <p>By using Andaman Nursery's website, you agree to be bound by Indian laws regarding E-commerce and Agriculture trading.</p>
+
+                    <h4>2. Risk of Loss & Shipping</h4>
+                    <p><strong>FOB Origin:</strong> The risk of loss passes to you (the buyer) once we hand over the parcel to the courier partner (Delhivery/DTDC). While we ensure 5-layer packaging, we are not liable for courier delays, theft, or damage during transit unless covered by specific insurance.</p>
+
+                    <h4>3. Jurisdiction</h4>
+                    <p>Any disputes arising out of this transaction shall be subject to the exclusive jurisdiction of the courts located in <strong>Nabarangpur District, Odisha</strong>.</p>
+
+                    <h4>4. Pricing & Errors</h4>
+                    <p>We reserve the right to cancel orders if a product is listed at an incorrect price due to technical glitches. Full refund will be initiated in such cases.</p>
+                `;
+            } 
+            else if(type === 'privacy') {
+                content = `
+                    <h2 style="color:#053B2F;">Privacy Policy</h2>
+                    
+                    <h4>1. Data Collection</h4>
+                    <p>We collect Name, Address, Phone Number, and Email solely for the purpose of shipping. We do not store your credit card or banking passwords.</p>
+
+                    <h4>2. Third-Party Sharing</h4>
+                    <p>Your address and phone number are shared with Logistics Partners (e.g., Delhivery, BlueDart) to facilitate delivery. We do not sell your data to marketing agencies.</p>
+
+                    <h4>3. Cookies</h4>
+                    <p>We use local storage cookies to remember your Cart and Wishlist items for your convenience.</p>
+                `;
+            }
+            else if(type === 'security') {
+                content = `
+                    <h2 style="color:#053B2F;">Security & Payments</h2>
+                    
+                    <h4>1. Secure Transactions</h4>
+                    <p>All payments made on Andaman Nursery are encrypted using 256-bit SSL technology. We use trusted gateways like UPI (PhonePe/GPay) which ensure your banking details remain safe.</p>
+
+                    <h4>2. Website Safety</h4>
+                    <p>Our website is scanned regularly for malware and vulnerabilities. We ensure that your browsing experience is safe and your personal data is protected against unauthorized access.</p>
+                `;
+            }
+            else if(type === 'science') {
+                content = `
+                    <h2 style="color:#053B2F;">The Science of Andaman Plants</h2>
+                    
+                    <h4>1. Why Andaman Varieties?</h4>
+                    <p>The Andaman & Nicobar Islands have a unique tropical climate that produces some of the world's most robust coconut and spice genetics. The plants have thicker cell walls, higher disease resistance, and a natural ability to withstand high humidity.</p>
+
+                    <h4>2. The Problem with Direct Import</h4>
+                    <p>If you bring a plant directly from Andaman to Delhi or Odisha, it will die due to 'Shock'. The humidity drop is too drastic.</p>
+
+                    <h4>3. Our 'Hardening' Technology</h4>
+                    <p>At our facility in Bharsundi, we use a <strong>3-Step Hardening Process</strong>:</p>
+                    <ul>
+                        <li><strong>Step 1 (Green House):</strong> Simulated Island environment with misting.</li>
+                        <li><strong>Step 2 (Net House):</strong> 50% shade and exposure to local soil bacteria.</li>
+                        <li><strong>Step 3 (Open Field):</strong> Full sun exposure for 30 days.</li>
+                    </ul>
+                    <p>Only plants that survive Step 3 are shipped to you. This guarantees near 100% survival rate in your garden.</p>
+                `;
+            }
+            else if(type === 'return_center') {
+                content = `
+                    <h2 style="color:#053B2F;">Returns Centre</h2>
+                    
+                    <p>If you have received a damaged product, please follow these steps to file a claim:</p>
+
+                    <h4>Step 1: Check Eligibility</h4>
+                    <p>Is the plant completely dead? Do you have an unboxing video? Was the package delivered less than 2 hours ago?</p>
+
+                    <h4>Step 2: Contact Support</h4>
+                    <p>Click the button below to open a ticket on WhatsApp. Attach your video and Order ID.</p>
+                    
+                    <button class="action-btn" onclick="shareWA()" style="background:#25D366; color:white; width:100%; margin-top:20px;">
+                        <i class="fab fa-whatsapp"></i> File Complaint on WhatsApp
+                    </button>
+
+                    <p style="margin-top:20px; font-size:12px; color:#666;">Note: Submitting a request does not guarantee a refund. Our team will review the evidence first.</p>
+                `;
+            }
+
+            document.getElementById('policyContent').innerHTML = content;
+            document.getElementById('policyModal').style.display = "block";
+        }
+
+        function closePolicy() { document.getElementById('policyModal').style.display = "none"; }
+        function swapImg(el) { document.getElementById('dImg').src = el.src; document.querySelectorAll('.t-img').forEach(t=>t.classList.remove('active')); el.classList.add('active'); }
+        function renderCartPage() { const list = document.getElementById('cartItemsList'); list.innerHTML = ""; let total = 0; let qty = 0; cart.forEach((item, i) => { total += item.price * item.qty; qty += item.qty; list.innerHTML += `<div class="cart-item"><img src="https://placehold.co/100x100/png?text=${item.name.split(' ')[0]}" class="ci-img"><div class="ci-details"><div class="ci-title">${item.name}</div><div class="ci-price">₹${item.price} x ${item.qty}</div><div class="remove-btn" onclick="removeFromCart(${i})">Remove</div></div></div>`; }); document.getElementById('cTotalQty').innerText = qty; document.getElementById('cTotalPrice').innerText = total; }
+        function removeFromCart(i) { cart.splice(i, 1); document.getElementById('cCount').innerText = cart.length; if(cart.length===0) goHome(); else renderCartPage(); }
+        function checkoutFromCart() { if(checkAuthAction()) { isCartCheckout=true; startCheckout(); } }
+        function addToCart() { if(checkAuthAction()) { let q=parseInt(document.getElementById('dQty').value); cart.push({...curr,qty:q}); alert("Added!"); document.getElementById('cCount').innerText=cart.length; } }
+        function buyNow() { if(checkAuthAction()) { isCartCheckout=false; startCheckout(); } }
+        function selPay(type) { document.getElementById('radUPI').checked = (type==='upi'); document.getElementById('radCOD').checked = (type==='cod'); updateTotal(); }
+        function updateTotal() { let isCOD = document.getElementById('radCOD').checked; let total = 0; if(isCartCheckout) cart.forEach(i=>total+=i.price*i.qty); else total=curr.price*buyQty; let del = 80; let final = total + del; document.getElementById('sumItem').innerText = total; document.getElementById('sumDel').innerText = del; document.getElementById('sumTotal').innerText = final; if(isCOD) { let pay = final/2; document.getElementById('paySplit').style.display='block'; document.getElementById('payNow').innerText=pay; document.getElementById('payLater').innerText=pay; } else { document.getElementById('paySplit').style.display='none'; } }
+        function placeOrder() {
+            let total = document.getElementById('sumTotal').innerText;
+            let isCOD = document.getElementById('radCOD').checked;
+            let method = isCOD ? "Cash on Delivery" : "Online";
+            let status = isCOD ? "50% Advance" : "Prepaid";
+            let addrText = "Default";
+            if(user.addresses && user.addresses.length > 0) { let addrObj = user.addresses[selectedAddrIndex]; addrText = `${addrObj.name}, ${addrObj.city}, ${addrObj.phone}`; }
+            if(!user.orders) user.orders = [];
+            user.orders.push({id: Date.now(), total: total, date: new Date().toLocaleDateString()});
+            localStorage.setItem("andamanUser", JSON.stringify(user));
+            let itemsTxt = isCartCheckout ? `Cart (${cart.length} items)` : `${curr.name} (Qty: ${buyQty})`;
+            let msg = `*NEW ORDER*%0A%0A👤 ${addrText}%0A📦 ${itemsTxt}%0A💰 Total: ₹${total}%0A💳 ${method}%0A✅ ${status}`;
+            window.open(`https://wa.me/917853984943?text=${msg}`, '_blank');
+            if(isCartCheckout) { cart=[]; document.getElementById('cCount').innerText=0; }
+            goHome();
+        }
+        function verifyPin() {
+            let pin = document.getElementById('regPin').value; let btn = document.getElementById('regBtn'); let msg = document.getElementById('pinMsg'); let city = document.getElementById('regCity'); let state = document.getElementById('regState');
+            if(pin.length === 6) { msg.innerText = "Delivery Available ✅"; city.value = "Nabarangpur"; state.value = "Odisha"; btn.disabled = false; btn.style.opacity = "1"; } 
+            else { msg.innerText = ""; city.value = ""; state.value = ""; btn.disabled = true; btn.style.opacity = "0.6"; }
+        }
+        function register() {
+            let n=document.getElementById('regName').value, p=document.getElementById('regPhone').value, a=document.getElementById('regAddr').value, c=document.getElementById('regCity').value, s=document.getElementById('regState').value, pi=document.getElementById('regPin').value;
+            if(!n||!p||!a) { alert("Fill details"); return; }
+            user = { name:n, phone:p, addr:a, city:c, state:s, pin:pi, addresses: [ {name:n, phone:p, flat:a, area:"", city:c, state:s, pin:pi} ] };
+            localStorage.setItem("andamanUser", JSON.stringify(user)); document.getElementById('uNameDisp').innerText = "Hello, " + user.name.split(" ")[0]; goHome();
+        }
+        function filter(c) { goPage('home'); if(c==='All') renderHome(plants); else renderHome(plants.filter(p=>p.cat===c)); }
+        function doSearch() { let v = document.getElementById('search').value.toLowerCase(); renderHome(plants.filter(p=>p.name.toLowerCase().includes(v))); }
+        window.onscroll = function() { let btn = document.getElementById("backTop"); if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { btn.style.display = "flex"; } else { btn.style.display = "none"; } };
+        function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+    </script>
+</body>
+</html>
